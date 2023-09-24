@@ -30,6 +30,7 @@ int _printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
+			format++;
 			if (*format == 'c')
 			{
 				char c =(char) va_arg(arguments, int);
