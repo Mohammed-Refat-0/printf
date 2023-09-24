@@ -13,6 +13,10 @@ int _printf(const char *format, ...)
 	int i;
 	int count = 0;
 	va_list arguments;
+	if (!format)
+	{
+		return (0);
+	}
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		length++;
@@ -30,6 +34,21 @@ int _printf(const char *format, ...)
 			{
 				char c =(char) va_arg(arguments, int);
 				count = count + (write(1, &c, 1));
+				format++;
+			}
+			else if (*format == '%')
+			{
+				count = count + (write(1,format,1));
+				format++;
+			}
+			else if (*format == 's')
+			{
+				char *string = va_arg(arguments, char *);
+				while (*string)
+				{
+				count = count + (write(1, string, 1));
+				string++;
+				}
 				format++;
 			}
 		}
